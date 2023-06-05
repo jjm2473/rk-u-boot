@@ -22,4 +22,16 @@
 #define CONFIG_BOOTCOMMAND RKIMG_BOOTCOMMAND
 
 #endif
+
+/* 
+ * TFTP speed up, by enable ip fragment, and set default blksize to MTU.
+ * Use `env set tftpblocksize 16384` to override blksize, max CONFIG_NET_MAXDEFRAG.
+ * MUST: CONFIG_TFTP_BLOCKSIZE <= CONFIG_NET_MAXDEFRAG
+ */
+#define CONFIG_IP_DEFRAG
+/* ip fragment, CONFIG_NET_MAXDEFRAG , default 16384, max 65536 */
+/* #define CONFIG_NET_MAXDEFRAG		16384 */
+#define CONFIG_UDP_CHECKSUM
+#define CONFIG_TFTP_BLOCKSIZE		1468
+
 #endif
