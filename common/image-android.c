@@ -39,6 +39,7 @@ DECLARE_GLOBAL_DATA_PTR;
 static char andr_tmp_str[ANDR_BOOT_ARGS_SIZE + 1];
 static u32 android_kernel_comp_type = IH_COMP_NONE;
 
+#ifdef CONFIG_RKIMG_BOOTLOADER
 static int android_version_init(void)
 {
 	struct andr_img_hdr *hdr = NULL;
@@ -73,11 +74,13 @@ static int android_version_init(void)
 
 	return (os_version >> 25) & 0x7f;
 }
+#endif
 
 u32 android_bcb_msg_sector_offset(void)
 {
+#ifdef CONFIG_RKIMG_BOOTLOADER
 	static int android_version = -1;	/* static */
-
+#endif
 	/*
 	 * get android os version:
 	 *
