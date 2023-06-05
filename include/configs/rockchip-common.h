@@ -176,6 +176,8 @@
 	"run distro_bootcmd;"
 #endif
 
+#define CONFIG_IMAGE_FORMAT_LEGACY /* enable also legacy image format */
+
 #endif /* CONFIG_SPL_BUILD */
 
 #define CONFIG_DISPLAY_BOARDINFO_LATE
