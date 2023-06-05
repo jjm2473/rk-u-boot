@@ -1115,6 +1115,7 @@ void board_quiesce_devices(void *images)
 #endif
 }
 
+#ifdef CONFIG_CMD_BOOT_ANDROID
 char *board_fdt_chosen_bootargs(void *fdt)
 {
 	/* bootargs_ext is used when dtbo is applied. */
@@ -1243,6 +1244,7 @@ char *board_fdt_chosen_bootargs(void *fdt)
 
 	return (char *)bootargs;
 }
+#endif
 
 int ft_verify_fdt(void *fdt)
 {
