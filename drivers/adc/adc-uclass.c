@@ -7,6 +7,7 @@
 
 #include <common.h>
 #include <errno.h>
+#include <div64.h>
 #include <dm.h>
 #include <dm/lists.h>
 #include <dm/device-internal.h>
@@ -362,6 +363,30 @@ nodev:
 		return -ENODATA;
 
 	*uV = uc_pdata->vss_microvolts * value_sign;
+
+	return 0;
+}
+
+int adc_raw_to_uV(struct udevice *dev, unsigned int raw, int *uV)
+{
+	unsigned int data_mask;
+	int ret, val, vref;
+	u64 raw64 = raw;
+
+	ret = adc_vdd_value(dev, &vref);
+	if (ret)
+		return ret;
+
+	if (!adc_vss_value(dev, &val))
+		vref -= val;
+
+	ret = adc_data_mask(dev, &data_mask);
+	if (ret)
+		return ret;
+
+	raw64 *= vref;
+	do_div(raw64, data_mask);
+	*uV = raw64;
 
 	return 0;
 }
