@@ -220,6 +220,18 @@ int adc_channels_data(struct udevice *dev, unsigned int channel_mask,
 int adc_data_mask(struct udevice *dev, unsigned int *data_mask);
 
 /**
+ * adc_channel_mask() - get channel mask for given ADC device
+ *
+ * This can be used if adc uclass platform data is filled.
+ *
+ * @dev:       ADC device to check
+ * @channel_mask: pointer to the returned channel bitmask
+ * @return: 0 if OK, -ve on error
+ */
+int adc_channel_mask(struct udevice *dev, unsigned int *channel_mask);
+
+
+/**
  * adc_channel_single_shot() - get output data of conversion for the ADC
  * device's channel. This function searches for the device with the given name,
  * starts the given channel conversion and returns the output data.

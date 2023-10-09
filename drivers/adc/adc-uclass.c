@@ -84,6 +84,18 @@ int adc_data_mask(struct udevice *dev, unsigned int *data_mask)
 	return 0;
 }
 
+int adc_channel_mask(struct udevice *dev, unsigned int *channel_mask)
+{
+	struct adc_uclass_platdata *uc_pdata = dev_get_uclass_platdata(dev);
+
+	if (!uc_pdata)
+		return -ENOSYS;
+
+	*channel_mask = uc_pdata->channel_mask;
+
+	return 0;
+}
+
 int adc_stop(struct udevice *dev)
 {
 	const struct adc_ops *ops = dev_get_driver_ops(dev);
